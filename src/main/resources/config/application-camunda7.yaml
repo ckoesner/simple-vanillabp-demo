@@ -24,3 +24,5 @@ vanillabp:
   adapters:
     camunda7:
       resources-path: processes7
+
+workerId: "testWorkerId"

@@ -59,6 +59,11 @@
       <artifactId>jaxb-api</artifactId>
       <version>2.3.1</version>
     </dependency>
+    <dependency>
+      <groupId>io.vanillabp</groupId>
+      <artifactId>spi-for-java</artifactId>
+      <version>1.0.2</version>
+    </dependency>
   </dependencies>
 
   <profiles>
@@ -81,6 +86,12 @@
           <groupId>org.camunda.community.vanillabp</groupId>
           <artifactId>camunda7-spring-boot-adapter</artifactId>
           <version>1.0.9</version>
+          <exclusions>
+            <exclusion>
+              <groupId>io.vanillabp</groupId>
+              <artifactId>spring-boot-support</artifactId>
+            </exclusion>
+          </exclusions>
           <!--
           <exclusions>
             <exclusion>
@@ -93,6 +104,16 @@
             </exclusion>
           </exclusions>
           -->
+        </dependency>
+        <dependency>
+          <groupId>io.vanillabp</groupId>
+          <artifactId>spring-boot-support</artifactId>
+          <version>1.0.6-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+          <groupId>io.vanillabp.businesscockpit</groupId>
+          <artifactId>camunda7-spring-boot-adapter</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
         </dependency>
       </dependencies>
     </profile>

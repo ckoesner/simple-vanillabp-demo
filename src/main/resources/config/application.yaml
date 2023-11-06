@@ -2,6 +2,9 @@ logging:
   level:
     io.vanillabp: DEBUG
 
+server:
+  port: 8079
+
 spring:
   application:
     name: Demo
@@ -16,3 +19,21 @@ spring:
     console:
       enabled: true
       path: /h2
+
+vanillabp:
+  cockpit:
+    template-loader-path: "localhost"
+  workflows:
+    - workflow-module-id: "demo"
+      workflow-module-uri: "http://localhost:8079/Demo"
+      task-provider-api-path: "/task-provider/v1"
+      ui-uri-path: "/remoteEntry.js"
+      ui-uri-type: "WEBPACK_MF_REACT"
+      bpmn-description-language: "de"
+      bpmn-process-id: "DemoWorkflow"
+    - workflow-module-id: "demo"
+      workflow-module-uri: "http://localhost:8079/Demo"
+      task-provider-api-path: "/task-provider/v1"
+      ui-uri-path: "/remoteEntry.js"
+      ui-uri-type: "WEBPACK_MF_REACT"
+      bpmn-description-language: "de"
