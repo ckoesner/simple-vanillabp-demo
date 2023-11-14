@@ -3,6 +3,21 @@
   <groupId>org.camunda.summit.vanillabp</groupId>
   <artifactId>demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <version.java>17</version.java>
+    <npm.registry>http://localhost:4873/</npm.registry>
+    <skip-node-remove>true</skip-node-remove>
+
+    <spring-boot.version>2.7.5</spring-boot.version>
+    <mapstruct.version>1.5.5.Final</mapstruct.version>
+    <h2.version>2.1.214</h2.version>
+    <jaxb-api.version>2.3.1</jaxb-api.version>
+    <spi-for-java.version>1.0.2</spi-for-java.version>
+    <jackson-databind.version>2.14.1</jackson-databind.version>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
@@ -13,56 +28,132 @@
           <release>11</release>
         </configuration>
       </plugin>
-          <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>2.6.6</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>repackage</goal>
-                </goals>
-              </execution>
-            </executions>
+
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>3.1.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>demo.DemoApplication</mainClass>
+          <executable>true</executable>
+          <jvmArguments>-Xmx196m</jvmArguments>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>clean-node-modules</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
             <configuration>
-              <mainClass>demo.DemoApplication</mainClass>
-              <executable>true</executable>
-              <fork>true</fork>
-              <jvmArguments>-Xmx196m</jvmArguments>
+              <skip>${skip-node-remove}</skip>
+              <filesets>
+                <fileset>
+                  <directory>${project.basedir}/src/main/webapp/node_modules</directory>
+                  <includes>
+                    <include>**/*</include>
+                  </includes>
+                  <followSymlinks>false</followSymlinks>
+                </fileset>
+              </filesets>
             </configuration>
-          </plugin>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>1.12.1</version>
+        <configuration>
+          <workingDirectory>${project.basedir}/src/main/webapp</workingDirectory>
+          <nodeVersion>v18.16.0</nodeVersion>
+          <npmVersion>9.6.5</npmVersion>
+          <installDirectory>${java.io.tmpdir}/frontend-maven-plugin</installDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <id>install node and npm install</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+          </execution>
+
+          <execution>
+            <id>npm install</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>--@vanillabp:registry=${npm.registry} install</arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>npm build</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>run build</arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
+
   <dependencies>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.14.1</version>
-    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <version>2.7.5</version>
+      <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
-      <version>2.7.5</version>
+      <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <version>2.1.214</version>
+      <version>${h2.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson-databind.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
-      <version>2.3.1</version>
+      <version>${jaxb-api.version}</version>
     </dependency>
     <dependency>
       <groupId>io.vanillabp</groupId>
       <artifactId>spi-for-java</artifactId>
       <version>1.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vanillabp</groupId>
+      <artifactId>spring-boot-support</artifactId>
+      <version>1.0.6-SNAPSHOT</version>
     </dependency>
   </dependencies>
 
@@ -70,45 +161,10 @@
     <profile>
       <id>camunda7</id>
       <dependencies>
-        <!--
-        <dependency>
-          <groupId>org.camunda.bpm.springboot</groupId>
-          <artifactId>camunda-bpm-spring-boot-starter</artifactId>
-          <version>7.17.6-ee</version>
-        </dependency>
-        <dependency>
-          <groupId>org.camunda.bpm.springboot</groupId>
-          <artifactId>camunda-bpm-spring-boot-starter-webapp-ee</artifactId>
-          <version>7.17.6-ee</version>
-        </dependency>
-        -->
         <dependency>
           <groupId>org.camunda.community.vanillabp</groupId>
           <artifactId>camunda7-spring-boot-adapter</artifactId>
           <version>1.0.9</version>
-          <exclusions>
-            <exclusion>
-              <groupId>io.vanillabp</groupId>
-              <artifactId>spring-boot-support</artifactId>
-            </exclusion>
-          </exclusions>
-          <!--
-          <exclusions>
-            <exclusion>
-              <groupId>org.camunda.bpm.springboot</groupId>
-              <artifactId>camunda-bpm-spring-boot-starter</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.camunda.bpm.springboot</groupId>
-              <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
-            </exclusion>
-          </exclusions>
-          -->
-        </dependency>
-        <dependency>
-          <groupId>io.vanillabp</groupId>
-          <artifactId>spring-boot-support</artifactId>
-          <version>1.0.6-SNAPSHOT</version>
         </dependency>
         <dependency>
           <groupId>io.vanillabp.businesscockpit</groupId>
