@@ -2,6 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.camunda.summit.vanillabp</groupId>
   <artifactId>demo</artifactId>
+  <name>VanillaBP demo</name>
   <version>0.0.1-SNAPSHOT</version>
 
   <properties>
@@ -180,6 +181,11 @@
           <groupId>org.camunda.community.vanillabp</groupId>
           <artifactId>camunda8-spring-boot-adapter</artifactId>
           <version>1.0.6</version>
+        </dependency>
+        <dependency>
+          <groupId>io.vanillabp.businesscockpit</groupId>
+          <artifactId>camunda8-spring-boot-adapter</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
         </dependency>
       </dependencies>
     </profile>

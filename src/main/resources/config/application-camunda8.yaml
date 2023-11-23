@@ -9,3 +9,9 @@ vanillabp:
   adapters:
     camunda8:
       resources-path: processes8
+  redis:
+    uri: "redis://localhost:6379"
+    consumerGroup: "demoApplication"
+    consumerId: "consumer-1"
+
+workerId: "testWorkerId"
