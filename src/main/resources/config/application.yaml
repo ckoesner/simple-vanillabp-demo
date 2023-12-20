@@ -37,3 +37,5 @@ vanillabp:
       ui-uri-path: "/remoteEntry.js"
       ui-uri-type: "WEBPACK_MF_REACT"
       bpmn-description-language: "de"
+
+workerId: test
