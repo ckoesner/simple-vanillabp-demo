@@ -1,0 +1,5 @@
+vanillabp:
+  cockpit:
+    kafka-topics:
+      user-task: "user-tasks"
+      workflow: "workflows"

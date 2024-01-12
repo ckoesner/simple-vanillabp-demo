@@ -16,7 +16,7 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/official-api': {
-        target: 'http://0.0.0.0:8079',
+        target: 'http://0.0.0.0:8078',
         secure: false,
         changeOrigin: true,
         logLevel: "debug",

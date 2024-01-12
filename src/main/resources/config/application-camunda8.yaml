@@ -13,5 +13,3 @@ vanillabp:
     uri: "redis://localhost:6379"
     consumerGroup: "demoApplication"
     consumerId: "consumer-1"
-
-workerId: "testWorkerId"
