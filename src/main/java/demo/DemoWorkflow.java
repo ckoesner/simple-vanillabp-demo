@@ -1,5 +1,8 @@
 package demo;
 
+import io.vanillabp.spi.cockpit.workflow.PrefilledWorkflowDetails;
+import io.vanillabp.spi.cockpit.workflow.WorkflowDetails;
+import io.vanillabp.spi.cockpit.workflow.WorkflowDetailsProvider;
 import io.vanillabp.spi.process.ProcessService;
 import io.vanillabp.spi.service.TaskId;
 import io.vanillabp.spi.service.WorkflowService;
@@ -8,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 @WorkflowService(workflowAggregateClass = DemoAggregate.class)
@@ -72,5 +77,11 @@ public class DemoWorkflow {
         logger.info("error");
         
     }
-    
+
+    @WorkflowDetailsProvider
+    public WorkflowDetails workflowDetails(DemoAggregate demoAggregate, PrefilledWorkflowDetails prefilledWorkflowDetails){
+        prefilledWorkflowDetails.setDetails(Map.of("a", "b"));
+        prefilledWorkflowDetails.setDetailsFulltextSearch("c");
+        return prefilledWorkflowDetails;
+    }
 }
