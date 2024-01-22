@@ -13,13 +13,13 @@ spring:
     url: jdbc:h2:file:./demodb.h2;DB_CLOSE_ON_EXIT=FALSE
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-  liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yaml
-    enabled: true
   h2:
     console:
       enabled: true
       path: /h2
+  liquibase:
+    change-log: classpath:db/changelog/demo-aggregate.yaml
+    enabled: true
 
 workerId: test
 
@@ -30,13 +30,13 @@ vanillabp:
     - workflow-module-id: "demo"
       workflow-module-uri: "http://localhost:8078/demo"
       task-provider-api-path: "/task-provider/v1"
+      workflow-provider-api-path: "/workflow-provider/v1"
+      ui-uri-path: "/remoteEntry.js"
+      ui-uri-type: "WEBPACK_MF_REACT"
+      bpmn-description-language: "de"
+    - workflow-module-id: "demo"
+      workflow-module-uri: "http://localhost:8078/demo"
       ui-uri-path: "/remoteEntry.js"
       ui-uri-type: "WEBPACK_MF_REACT"
       bpmn-description-language: "de"
       bpmn-process-id: "DemoWorkflow"
-    - workflow-module-id: "demo"
-      workflow-module-uri: "http://localhost:8078/demo"
-      task-provider-api-path: "/task-provider/v1"
-      ui-uri-path: "/remoteEntry.js"
-      ui-uri-type: "WEBPACK_MF_REACT"
-      bpmn-description-language: "de"
