@@ -29,23 +29,23 @@
           <release>17</release>
         </configuration>
       </plugin>
-          <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>3.1.2</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>repackage</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <mainClass>demo.DemoApplication</mainClass>
-              <executable>true</executable>
-              <jvmArguments>-Xmx196m</jvmArguments>
-            </configuration>
-          </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>3.1.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>demo.DemoApplication</mainClass>
+          <executable>true</executable>
+          <jvmArguments>-Xmx196m</jvmArguments>
+        </configuration>
+      </plugin>
 
 
       <plugin>
@@ -164,11 +164,11 @@
           <artifactId>camunda7-spring-boot-adapter</artifactId>
           <version>1.1.2</version>
         </dependency>
-          <dependency>
-              <groupId>io.vanillabp.businesscockpit</groupId>
-              <artifactId>camunda7-spring-boot-adapter</artifactId>
-              <version>0.0.2-SNAPSHOT</version>
-          </dependency>
+        <dependency>
+          <groupId>io.vanillabp.businesscockpit</groupId>
+          <artifactId>camunda7-spring-boot-adapter</artifactId>
+          <version>0.0.2-SNAPSHOT</version>
+        </dependency>
       </dependencies>
     </profile>
     <profile>
