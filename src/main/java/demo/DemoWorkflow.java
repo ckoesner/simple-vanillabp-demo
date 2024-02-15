@@ -1,5 +1,8 @@
 package demo;
 
+import io.vanillabp.spi.cockpit.usertask.PrefilledUserTaskDetails;
+import io.vanillabp.spi.cockpit.usertask.UserTaskDetails;
+import io.vanillabp.spi.cockpit.usertask.UserTaskDetailsProvider;
 import io.vanillabp.spi.cockpit.workflow.PrefilledWorkflowDetails;
 import io.vanillabp.spi.cockpit.workflow.WorkflowDetails;
 import io.vanillabp.spi.cockpit.workflow.WorkflowDetailsProvider;
@@ -12,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -78,9 +82,20 @@ public class DemoWorkflow {
         
     }
 
+
+    @UserTaskDetailsProvider(taskDefinition = "processTask")
+    public UserTaskDetails userTaskDetails(DemoAggregate demoAggregate, PrefilledUserTaskDetails prefilledUserTaskDetails){
+        List<String> a = List.of("a1", "a2", "a3");
+        prefilledUserTaskDetails.setDetails(Map.of("a", a, "b", "b"));
+        prefilledUserTaskDetails.setDetailsFulltextSearch("c");
+        return prefilledUserTaskDetails;
+    }
+
+
     @WorkflowDetailsProvider
     public WorkflowDetails workflowDetails(DemoAggregate demoAggregate, PrefilledWorkflowDetails prefilledWorkflowDetails){
-        prefilledWorkflowDetails.setDetails(Map.of("a", "b"));
+        List<String> a = List.of("a1", "a2", "a3");
+        prefilledWorkflowDetails.setDetails(Map.of("a", a, "b", "b"));
         prefilledWorkflowDetails.setDetailsFulltextSearch("c");
         return prefilledWorkflowDetails;
     }
