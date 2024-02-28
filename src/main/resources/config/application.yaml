@@ -25,18 +25,13 @@ workerId: test
 
 vanillabp:
   cockpit:
-    template-loader-path: "localhost"
-  workflows:
-    - workflow-module-id: "demo"
-      workflow-module-uri: "http://localhost:8078/demo"
-      task-provider-api-path: "/task-provider/v1"
-      workflow-provider-api-path: "/workflow-provider/v1"
-      ui-uri-path: "/remoteEntry.js"
-      ui-uri-type: "WEBPACK_MF_REACT"
-      bpmn-description-language: "de"
-    - workflow-module-id: "demo"
-      workflow-module-uri: "http://localhost:8078/demo"
-      ui-uri-path: "/remoteEntry.js"
-      ui-uri-type: "WEBPACK_MF_REACT"
-      bpmn-description-language: "de"
-      bpmn-process-id: "DemoWorkflow"
+    template-loader-path: "classpath:template"
+  workflow-modules:
+      cockpit:
+        workflow-module-uri: "http://localhost:8078/demo"
+        task-provider-api-path: "/task-provider/v1"
+        workflow-provider-api-path: "/workflow-provider/v1"
+        ui-uri-path: "/remoteEntry.js"
+        ui-uri-type: "WEBPACK_MF_REACT"
+        bpmn-description-language: "de"
+        i18n-languages: ["de"]

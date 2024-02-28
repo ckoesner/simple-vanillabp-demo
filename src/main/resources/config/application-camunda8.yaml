@@ -23,9 +23,11 @@ common:
   client-secret: zecret
 
 vanillabp:
-  adapters:
-    camunda8:
-      resources-path: processes8
+  workflow-modules:
+    demo:
+      adapters:
+        camunda8:
+          resources-location: processes8
   redis:
     uri: "redis://localhost:6379"
     consumerGroup: "demoApplication"
