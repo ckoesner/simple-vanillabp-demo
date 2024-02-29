@@ -27,8 +27,9 @@ vanillabp:
   cockpit:
     template-loader-path: "classpath:template"
   workflow-modules:
+    demo:
       cockpit:
-        workflow-module-uri: "http://localhost:8078/demo"
+        workflow-module-uri: "http://localhost:8078"
         task-provider-api-path: "/task-provider/v1"
         workflow-provider-api-path: "/workflow-provider/v1"
         ui-uri-path: "/remoteEntry.js"

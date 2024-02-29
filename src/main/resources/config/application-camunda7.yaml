@@ -21,6 +21,8 @@ camunda:
       auto-deployment-enabled: false
 
 vanillabp:
-  adapters:
-    camunda7:
-      resources-path: processes7
+   workflow-modules:
+      demo:
+         adapters:
+            camunda7:
+               resources-location: classpath*:/processes7
