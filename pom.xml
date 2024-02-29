@@ -177,7 +177,7 @@
         <dependency>
           <groupId>org.camunda.community.vanillabp</groupId>
           <artifactId>camunda8-spring-boot-adapter</artifactId>
-          <version>1.3.0-SNAPSHOT</version>
+          <version>1.3.0</version>
         </dependency>
         <dependency>
           <groupId>io.vanillabp.businesscockpit</groupId>
@@ -187,4 +187,45 @@
       </dependencies>
     </profile>
   </profiles>
+
+  <repositories>
+    <repository>
+      <id>vanillabp-spring-boot-support</id>
+      <url>https://maven.pkg.github.com/vanillabp/spring-boot-support</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+    <repository>
+      <id>camunda-community-hub-vanillabp-camunda7-adapter</id>
+      <url>https://maven.pkg.github.com/camunda-community-hub/vanillabp-camunda7-adapter</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+    <repository>
+      <id>camunda-community-hub-vanillabp-camunda8-adapter</id>
+      <url>https://maven.pkg.github.com/camunda-community-hub/vanillabp-camunda8-adapter</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+    <repository>
+      <id>vanillabp-bc</id>
+      <name>VanillaBP business cockpit</name>
+      <url>https://maven.pkg.github.com/vanillabp/business-cockpit</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 </project>

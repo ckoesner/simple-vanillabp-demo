@@ -42,15 +42,8 @@ const TestForm1: UserTaskForm = ({ userTask }) => {
           <br/>
           User: {userDetails?.email ?? 'unknown'}
           <br/>
-          <form onSubmit={event => sendMessage()}>
-{/*              <label>
-                  Name:
-                  <input type="text" className="form-control" value={formText}
-                         onChange={(e) => setFormText(e.target.value)}
-                  />
-              </label>*/}
-              <input type="submit" value="Submit"/>
-          </form>
+
+          <button onClick={sendMessage}>Submit</button>
       </div>);
 };
 
