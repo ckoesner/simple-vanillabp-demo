@@ -25,6 +25,7 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @WorkflowService(workflowAggregateClass = DemoAggregate.class)
@@ -45,7 +46,15 @@ public class DemoHackathonWorkflow {
         demo = processService.startWorkflow(demo);
 
         logger.info("Run: {}", demo.getId());
+    }
 
+    public void startDemo() throws Exception {
+        var demo = new DemoAggregate();
+        UUID uuid = UUID.randomUUID();
+        demo.setId(uuid.toString());
+        demo = processService.startWorkflow(demo);
+
+        logger.info("Run: {}", demo.getId());
     }
     
     public void requestDemo(final String id) throws Exception {

@@ -15,6 +15,11 @@ public class DemoRestController {
     @Autowired
     private DemoAggregateRepository demoAggregates;
 
+    @GetMapping("/demo/new")
+    public void requestDemoWorkflow() throws Exception {
+        demoHackathonWorkflow.startDemo();
+    }
+
     @GetMapping("/demo/{id}/process-task-completed/{taskId}")
     public ResponseEntity<Void> completeUserTask(
             @PathVariable("id") final String id,

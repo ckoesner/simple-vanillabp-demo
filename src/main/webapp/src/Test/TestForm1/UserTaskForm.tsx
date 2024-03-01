@@ -25,7 +25,7 @@ const TestForm1: UserTaskForm = ({ userTask }) => {
           Business ID: {userTask?.businessId ?? 'not available'}
           <br/>
           */}
-          <textarea onChange={e => setFormText(e.target.value)} placeholder="Hier Witz!" />
+          <textarea rows={6} cols={80} onChange={e => setFormText(e.target.value)} placeholder="Hier Witz!" />
           <br/>
 
           <button onClick={sendMessage}>Witz absenden</button>
