@@ -224,7 +224,13 @@ public class DemoHackathonWorkflow {
             final String taskId) {
 
         return demo.getJokeScore();
+    }
 
+    public void completeJokeEvaluation(
+            final DemoAggregate demo,
+            final String taskId) {
+
+        processService.completeUserTask(demo, taskId);
     }
 
 }

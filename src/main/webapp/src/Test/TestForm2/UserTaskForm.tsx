@@ -19,10 +19,9 @@ const TestForm2: UserTaskForm = ({ userTask }) => {
 
     const endProcess = (e) => {
         console.log(formText)
-        fetch('/wm/demo/api/demo/' + userTask.businessId + '/task/' + userTask.id + '/update',
+        fetch('/wm/demo/api/demo/' + userTask.businessId + '/task/' + userTask.id + '/complete',
             {
-                method: "POST",
-                body: formText
+                method: "POST"
             })
             .then(data => console.log(data))
             .then(window.close)
