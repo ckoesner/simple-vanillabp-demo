@@ -18,16 +18,17 @@ const TestForm1: UserTaskForm = ({ userTask }) => {
 
     return (
       <div>
-          <h1>Write your joke now!</h1>
+          <h1>Schreib deinen besten Witz!</h1>
+          {/*
           Task ID: {userTask?.id ?? 'not available'}
           <br/>
           Business ID: {userTask?.businessId ?? 'not available'}
           <br/>
+          */}
+          <textarea onChange={e => setFormText(e.target.value)} placeholder="Hier Witz!" />
+          <br/>
 
-            <textarea onChange={e => setFormText(e.target.value)} placeholder="Write your joke now!">
-            </textarea>
-
-          <button onClick={sendMessage}>Send your joke</button>
+          <button onClick={sendMessage}>Witz absenden</button>
       </div>);
 };
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0q5zof8" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.19.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0q5zof8" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.16.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
   <bpmn:process id="DemoHackathonWorkflow" name="Demo Hackathon Workflow" isExecutable="true" camunda:historyTimeToLive="100">
     <bpmn:startEvent id="StartEvent_1" name="demo wanted">
       <bpmn:outgoing>Flow_1shw5eh</bpmn:outgoing>
@@ -26,22 +26,22 @@
       <bpmn:incoming>Flow_0e0tg9v</bpmn:incoming>
       <bpmn:outgoing>Flow_16necjo</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_1wsqbnn" name="Tell me a joke" camunda:formKey="processTask">
+    <bpmn:userTask id="Activity_1wsqbnn" name="Sag einen Witz" camunda:formKey="processTask">
       <bpmn:incoming>Flow_1shw5eh</bpmn:incoming>
       <bpmn:outgoing>Flow_1cwn2je</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_07shnb3" sourceRef="Activity_0j5vvc1" targetRef="Event_11xa4o5" />
-    <bpmn:receiveTask id="Activity_0j5vvc1" name="Wait for event &#39;Continue&#39;" messageRef="Message_1g2baqp">
+    <bpmn:receiveTask id="Activity_0j5vvc1" name="Auf Event continue warten" messageRef="Message_1g2baqp">
       <bpmn:incoming>Flow_0hhyffi</bpmn:incoming>
       <bpmn:outgoing>Flow_07shnb3</bpmn:outgoing>
     </bpmn:receiveTask>
     <bpmn:sequenceFlow id="Flow_159u9co" sourceRef="EvaluateJoke" targetRef="ShowJokeEvaluation" />
     <bpmn:sequenceFlow id="Flow_1w6zdat" sourceRef="ShowJokeEvaluation" targetRef="Gateway_1i2ce8x" />
-    <bpmn:userTask id="ShowJokeEvaluation" name="Show Joke Evaluation" camunda:formKey="jokeEvaluation">
+    <bpmn:userTask id="ShowJokeEvaluation" name="Bewertung deines Witzes" camunda:formKey="jokeEvaluation">
       <bpmn:incoming>Flow_159u9co</bpmn:incoming>
       <bpmn:outgoing>Flow_1w6zdat</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="EvaluateJoke" name="Evaluate Joke" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:expression="${evaluateJoke}">
+    <bpmn:serviceTask id="EvaluateJoke" name="WItz bewerten" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:expression="${evaluateJoke}">
       <bpmn:incoming>Flow_1cwn2je</bpmn:incoming>
       <bpmn:outgoing>Flow_159u9co</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -56,14 +56,16 @@
           <dc:Bounds x="164" y="142" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0gsea3v_di" bpmnElement="Activity_1wsqbnn">
-        <dc:Bounds x="280" y="77" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_11xa4o5_di" bpmnElement="Event_11xa4o5">
         <dc:Bounds x="1082" y="99" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1072" y="142" width="56" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1i2ce8x_di" bpmnElement="Gateway_1i2ce8x" isMarkerVisible="true">
+        <dc:Bounds x="755" y="92" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="742" y="73" width="77" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0gpa17q_di" bpmnElement="Event_0gpa17q">
@@ -72,19 +74,17 @@
           <dc:Bounds x="1066" y="255" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0diw5nw_di" bpmnElement="Activity_0j5vvc1">
-        <dc:Bounds x="870" y="77" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0k28wlt_di" bpmnElement="Activity_18r3z00">
         <dc:Bounds x="870" y="190" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1i2ce8x_di" bpmnElement="Gateway_1i2ce8x" isMarkerVisible="true">
-        <dc:Bounds x="755" y="92" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="742" y="73" width="77" height="14" />
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNShape id="Activity_0gsea3v_di" bpmnElement="Activity_1wsqbnn">
+        <dc:Bounds x="280" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0diw5nw_di" bpmnElement="Activity_0j5vvc1">
+        <dc:Bounds x="870" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0d1yxqj_di" bpmnElement="ShowJokeEvaluation">
         <dc:Bounds x="600" y="77" width="100" height="80" />
@@ -92,6 +92,7 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1fevkom_di" bpmnElement="EvaluateJoke">
         <dc:Bounds x="440" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1shw5eh_di" bpmnElement="Flow_1shw5eh">
         <di:waypoint x="215" y="117" />

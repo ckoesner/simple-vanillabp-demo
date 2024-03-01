@@ -89,7 +89,7 @@ public class DemoRestController {
     }
 
     @GetMapping("/demo/{id}/task/{taskId}/score")
-    public ResponseEntity<Integer> getScore(
+    public ResponseEntity<ScoreResult> getScore(
             @PathVariable("id") final String id,
             @PathVariable("taskId") final String taskId) throws Exception {
 

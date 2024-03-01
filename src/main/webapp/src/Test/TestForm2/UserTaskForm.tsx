@@ -2,14 +2,16 @@ import {useEffect, useState} from 'react';
 import { UserTaskForm } from '@vanillabp/bc-shared';
 
 const TestForm2: UserTaskForm = ({ userTask }) => {
-    const [ formText, setFormText ] = useState("");
+    const [ evaluationValue, setEvaluationValue ] = useState(1);
+    const [ joke, setJoke ] = useState(1);
 
     useEffect(() => {
             fetch('/wm/demo/api/demo/' + userTask.businessId + '/task/' + userTask.id + '/score')
                 .then((response) => response.json())
                 .then((data) => {
                   console.log(data);
-                  setFormText(data);
+                    setJoke(data.joke);
+                    setEvaluationValue(data.evaluation);
                 })
                 .catch((err) => {
                   console.error(err.message);
@@ -18,7 +20,6 @@ const TestForm2: UserTaskForm = ({ userTask }) => {
 
 
     const endProcess = (e) => {
-        console.log(formText)
         fetch('/wm/demo/api/demo/' + userTask.businessId + '/task/' + userTask.id + '/complete',
             {
                 method: "POST"
@@ -28,17 +29,27 @@ const TestForm2: UserTaskForm = ({ userTask }) => {
             .catch(error => console.error(error));
     };
 
+    const evaluation = (evaluationNumber: number): string => {
+        if(evaluationNumber == -1){
+            return "Fehlgeschlagen.";
+        } else {
+            return evaluationNumber.toString() + "/10";
+        }
+    }
+
     return (
-      <div>
-          <h1>Your joke evaluation</h1>
-          Task ID: {userTask?.id ?? 'not available'}
-          <br/>
-          Business ID: {userTask?.businessId ?? 'not available'}
-          <br/>
-          Task evaluation: {formText}
-          <br />
-          <button onClick={endProcess}>Finish</button>
-      </div>);
+        <div>
+            <h1>Bewertung deines Humors</h1>
+            Du hast den folgenden Witz eingegeben:
+            <br/>
+            <br/>
+            {joke}
+            <br/>
+            <br/>
+            Die Bewertung deines Witzes: {evaluation(evaluationValue)}
+            <br/>
+            <button onClick={endProcess}>Abschließen</button>
+        </div>);
 };
 
 export default TestForm2;
