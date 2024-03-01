@@ -13,12 +13,15 @@ public class DemoAggregate {
     @Column(name = "ID")
     private String id;
 
+    @Column(name = "JOKE_DATA")
+    private String jokeData;
+
+    @Column(name = "JOKE_SCORE")
+    private int jokeScore;
+
     @Column(name = "SUCCESS")
     private boolean success;
 
-    @Column(name = "JOKE_DATA")
-    private String jokeData;
-    
     public String getId() {
         return id;
     }
@@ -41,5 +44,13 @@ public class DemoAggregate {
 
     public void setJokeData(String jokeData) {
         this.jokeData = jokeData;
+    }
+
+    public int getJokeScore() {
+        return jokeScore;
+    }
+
+    public void setJokeScore(int jokeScore) {
+        this.jokeScore = jokeScore;
     }
 }

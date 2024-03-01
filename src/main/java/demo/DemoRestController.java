@@ -88,4 +88,18 @@ public class DemoRestController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/demo/{id}/task/{taskId}/score")
+    public ResponseEntity<Integer> getScore(
+            @PathVariable("id") final String id,
+            @PathVariable("taskId") final String taskId) throws Exception {
+
+        final var demoAggregate = demoAggregates.findById(id);
+
+        if (demoAggregate.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(demoHackathonWorkflow.getJokeScore(demoAggregate.get(), taskId));
+    }
+
 }

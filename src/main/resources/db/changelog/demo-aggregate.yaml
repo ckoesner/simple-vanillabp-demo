@@ -17,6 +17,11 @@ databaseChangeLog:
                   constraints:
                     nullable: true
               - column:
+                  name: JOKE_SCORE
+                  type: int
+                  constraints:
+                    nullable: true
+              - column:
                   name: SUCCESS
                   type: boolean
                   constraints:

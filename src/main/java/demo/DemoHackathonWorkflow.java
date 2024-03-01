@@ -1,5 +1,6 @@
 package demo;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vanillabp.spi.cockpit.usertask.PrefilledUserTaskDetails;
 import io.vanillabp.spi.cockpit.usertask.UserTaskDetails;
 import io.vanillabp.spi.cockpit.usertask.UserTaskDetailsProvider;
@@ -10,6 +11,8 @@ import io.vanillabp.spi.process.ProcessService;
 import io.vanillabp.spi.service.TaskId;
 import io.vanillabp.spi.service.WorkflowService;
 import io.vanillabp.spi.service.WorkflowTask;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +22,10 @@ import java.net.*;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @WorkflowService(workflowAggregateClass = DemoAggregate.class)
@@ -111,6 +116,42 @@ public class DemoHackathonWorkflow {
         logger.info("UserTask: jokeEvaluation");
     }
 
+    @Data
+    @NoArgsConstructor
+    public static class Choice {
+        public int index;
+        public Message message;
+        public Object logprobs;
+        public String finish_reason;
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class Message {
+        public String role;
+        public String content;
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class OpenApiResponse {
+        public String id;
+        public String object;
+        public int created;
+        public String model;
+        public ArrayList<Choice> choices;
+        public Usage usage;
+        public String system_fingerprint;
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class Usage {
+        public int prompt_tokens;
+        public int completion_tokens;
+        public int total_tokens;
+    }
+
     @WorkflowTask(taskDefinition = "evaluateJoke")
     public void evaluateJoke(DemoAggregate demoAggregate) {
         logger.info("ServiceTask: EvaluateJoke");
@@ -119,7 +160,6 @@ public class DemoHackathonWorkflow {
         logger.info("demoAggregate: {}", demoAggregate.getJokeData());
 
         // use openAI -> query joke score 1 - 10
-
         try {
             String body = "{\n" +
                     "    \"model\": \"gpt-4-turbo-preview\",\n" +
@@ -148,29 +188,25 @@ public class DemoHackathonWorkflow {
             if (response.statusCode() != 200) {
                 throw new Exception("geht nicht");
             }
+            // logger.info("Response: {} ", response.body());
 
-            logger.info("Response: {} ", response.body());
+            ObjectMapper om = new ObjectMapper();
+            OpenApiResponse openApiResponse = om.readValue(response.body(), OpenApiResponse.class);
+
+            // Optional[DemoHackathonWorkflow.Choice(index=0, message=DemoHackathonWorkflow.Message(role=assistant, content=5), logprobs=null, finish_reason=stop)]
+            logger.info("openApiResponse(1): {} ", openApiResponse.choices.stream().findFirst());
+            Integer i = openApiResponse.choices
+                    .stream()
+                    .findFirst()
+                    .map(Choice::getMessage)
+                    .map(Message::getContent)
+                    .map(Integer::parseInt)
+                    .orElse(-1);
+            demoAggregate.setJokeScore(i);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        /*
-        URL url = null;
-        try {
-            url = new URL("https://api.openai.com/v1/chat/completions");
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", "Bearer " + "");
-
-            int status = con.getResponseCode();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        */
-
-
-
-        // score > 5 => success
 
     }
 
@@ -181,6 +217,14 @@ public class DemoHackathonWorkflow {
 
         demo.setJokeData(jokeData);
         processService.completeUserTask(demo, taskId);
+    }
+
+    public int getJokeScore(
+            final DemoAggregate demo,
+            final String taskId) {
+
+        return demo.getJokeScore();
+
     }
 
 }
