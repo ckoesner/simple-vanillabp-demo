@@ -25,6 +25,7 @@ const TestForm2: UserTaskForm = ({ userTask }) => {
                 body: formText
             })
             .then(data => console.log(data))
+            .then(window.close)
             .catch(error => console.error(error));
     };
 
