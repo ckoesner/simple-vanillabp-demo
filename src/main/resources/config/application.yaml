@@ -38,3 +38,9 @@ vanillabp:
         ui-uri-type: "WEBPACK_MF_REACT"
         bpmn-description-language: "de"
         i18n-languages: ["de"]
+
+
+openai:
+  host-name: "https://api.openai.com/"
+  api-endpoint: "v1/chat/completions"
+  api-key-bearer-token: ""

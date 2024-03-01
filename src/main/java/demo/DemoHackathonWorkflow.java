@@ -25,14 +25,16 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @WorkflowService(workflowAggregateClass = DemoAggregate.class)
 public class DemoHackathonWorkflow {
 
     private static final Logger logger = LoggerFactory.getLogger(DemoHackathonWorkflow.class);
-    
+
+    @Autowired
+    private OpenAiProperties openAiProperties;
+
     @Autowired
     private ProcessService<DemoAggregate> processService;
         
@@ -173,8 +175,8 @@ public class DemoHackathonWorkflow {
                     "    ]\n" +
                     "  }";
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI("https://api.openai.com/v1/chat/completions"))
-                    .header("Authorization", "Bearer " + "")
+                    .uri(new URI(openAiProperties.getHostName() + openAiProperties.getApiEndpoint()))
+                    .header("Authorization", "Bearer " + openAiProperties.getApiKeyBearerToken())
                     .header("Content-type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(body))
                     .build();
