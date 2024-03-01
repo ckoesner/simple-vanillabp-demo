@@ -1,25 +1,8 @@
-import { useEffect, useState } from 'react';
-import { UserTaskForm } from '@vanillabp/bc-shared';
-import {TextInput} from "grommet";
+import {useState} from 'react';
+import {UserTaskForm} from '@vanillabp/bc-shared';
 
 const TestForm1: UserTaskForm = ({ userTask }) => {
-    const [ userDetails, setUserDetails ] = useState();
     const [ formText, setFormText ] = useState("");
-
-    useEffect(() => {
-        if (userDetails !== undefined) {
-          return;
-        }
-    //     fetch('/wm/demo/api/user-info')
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //           console.log(data);
-    //           setUserDetails(data);
-    //         })
-    //         .catch((err) => {
-    //           console.error(err.message);
-    //         });
-    }, [ ]);
 
     const sendMessage = (e) => {
         console.log(formText)
@@ -29,12 +12,13 @@ const TestForm1: UserTaskForm = ({ userTask }) => {
                 body: formText
             })
             .then(data => console.log(data))
+            .then(window.close)
             .catch(error => console.error(error));
     };
 
     return (
       <div>
-          <h1>Testformular: '{userTask.title.de}'</h1>
+          <h1>Write your joke now!</h1>
           Task ID: {userTask?.id ?? 'not available'}
           <br/>
           Business ID: {userTask?.businessId ?? 'not available'}

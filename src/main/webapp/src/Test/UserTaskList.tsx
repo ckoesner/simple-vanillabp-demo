@@ -1,8 +1,10 @@
 import { lazy } from 'react';
 import { UserTaskListCell, WarningListCell } from '@vanillabp/bc-shared';
 import { taskDefinition as TestForm1_taskDefinition } from './TestForm1';
+import { taskDefinition as TestForm2_taskDefinition } from './TestForm2';
 
 const TestForm1_UserTaskListCell = lazy(() => import('./TestForm1/UserTaskList'));
+const TestForm2_UserTaskListCell = lazy(() => import('./TestForm2/UserTaskList'));
 
 const TaskListCell: UserTaskListCell = ({
     item,
@@ -11,6 +13,8 @@ defaultCell
 }) =>
 item.data.taskDefinition === TestForm1_taskDefinition
     ? <TestForm1_UserTaskListCell item={ item } column={ column } defaultCell={ defaultCell } />
+    : item.data.taskDefinition === TestForm2_taskDefinition
+    ? <TestForm2_UserTaskListCell item={ item } column={ column } defaultCell={ defaultCell } />
     : <WarningListCell message={ `unknown task '${item.data.taskDefinition}'` } />;
 
 export default TaskListCell;
