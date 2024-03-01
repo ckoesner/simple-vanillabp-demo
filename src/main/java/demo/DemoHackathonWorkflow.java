@@ -163,14 +163,16 @@ public class DemoHackathonWorkflow {
 
         // use openAI -> query joke score 1 - 10
         try {
+            String queryContent = new ObjectMapper().writeValueAsString(
+                    "Wie findest du diesen Witz von einer Skala von 1 bis 10 wo 10 das lustigste ist und antworte nur mit der skala als zahl? \n\n" +
+                    demoAggregate.getJokeData());
+
             String body = "{\n" +
                     "    \"model\": \"gpt-4-turbo-preview\",\n" +
                     "    \"messages\": [\n" +
                     "      {\n" +
                     "        \"role\": \"user\",\n" +
-                    "        \"content\": \"Wie findest du diesen Witz von einer Skala von 1 bis 10 wo 10 das lustigste ist und antworte nur mit der skala als zahl:\\n\\n" +
-                    demoAggregate.getJokeData() +
-                    "       \"" +
+                    "        \"content\": " + queryContent +
                     "      }\n" +
                     "    ]\n" +
                     "  }";
