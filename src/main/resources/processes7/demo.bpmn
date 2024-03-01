@@ -1,40 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0q5zof8" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.16.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
   <bpmn:process id="DemoHackathonWorkflow" name="Demo Hackathon Workflow" isExecutable="true" camunda:historyTimeToLive="100">
-    <bpmn:startEvent id="StartEvent_1" name="demo wanted">
+    <bpmn:startEvent id="StartEvent_1" name="Witz erwünscht">
       <bpmn:outgoing>Flow_1shw5eh</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_1shw5eh" sourceRef="StartEvent_1" targetRef="Activity_1wsqbnn" />
-    <bpmn:endEvent id="Event_11xa4o5" name="demo done">
-      <bpmn:incoming>Flow_07shnb3</bpmn:incoming>
+    <bpmn:endEvent id="Event_11xa4o5" name="Guten Witz erzählt">
+      <bpmn:incoming>Flow_0hhyffi</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1cwn2je" sourceRef="Activity_1wsqbnn" targetRef="EvaluateJoke" />
-    <bpmn:exclusiveGateway id="Gateway_1i2ce8x" name="funny or not &#62; 5" default="Flow_0hhyffi">
+    <bpmn:exclusiveGateway id="Gateway_1i2ce8x" name="lustig?" default="Flow_0hhyffi">
       <bpmn:incoming>Flow_1w6zdat</bpmn:incoming>
       <bpmn:outgoing>Flow_0hhyffi</bpmn:outgoing>
       <bpmn:outgoing>Flow_0e0tg9v</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_0hhyffi" name="yes" sourceRef="Gateway_1i2ce8x" targetRef="Activity_0j5vvc1" />
-    <bpmn:endEvent id="Event_0gpa17q" name="demo aborted">
-      <bpmn:incoming>Flow_16necjo</bpmn:incoming>
+    <bpmn:sequenceFlow id="Flow_0hhyffi" name="ja" sourceRef="Gateway_1i2ce8x" targetRef="Event_11xa4o5" />
+    <bpmn:endEvent id="Event_0gpa17q" name="Schlechten Witz erzählt">
+      <bpmn:incoming>Flow_0e0tg9v</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_0e0tg9v" name="no" sourceRef="Gateway_1i2ce8x" targetRef="Activity_18r3z00">
+    <bpmn:sequenceFlow id="Flow_0e0tg9v" name="nein" sourceRef="Gateway_1i2ce8x" targetRef="Event_0gpa17q">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${not success}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_16necjo" sourceRef="Activity_18r3z00" targetRef="Event_0gpa17q" />
-    <bpmn:serviceTask id="Activity_18r3z00" name="Log error" camunda:expression="${logError}">
-      <bpmn:incoming>Flow_0e0tg9v</bpmn:incoming>
-      <bpmn:outgoing>Flow_16necjo</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:userTask id="Activity_1wsqbnn" name="Sag einen Witz" camunda:formKey="processTask">
       <bpmn:incoming>Flow_1shw5eh</bpmn:incoming>
       <bpmn:outgoing>Flow_1cwn2je</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_07shnb3" sourceRef="Activity_0j5vvc1" targetRef="Event_11xa4o5" />
-    <bpmn:receiveTask id="Activity_0j5vvc1" name="Auf Event continue warten" messageRef="Message_1g2baqp">
-      <bpmn:incoming>Flow_0hhyffi</bpmn:incoming>
-      <bpmn:outgoing>Flow_07shnb3</bpmn:outgoing>
-    </bpmn:receiveTask>
     <bpmn:sequenceFlow id="Flow_159u9co" sourceRef="EvaluateJoke" targetRef="ShowJokeEvaluation" />
     <bpmn:sequenceFlow id="Flow_1w6zdat" sourceRef="ShowJokeEvaluation" targetRef="Gateway_1i2ce8x" />
     <bpmn:userTask id="ShowJokeEvaluation" name="Bewertung deines Witzes" camunda:formKey="jokeEvaluation">
@@ -53,37 +43,17 @@
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="99" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="164" y="142" width="67" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_11xa4o5_di" bpmnElement="Event_11xa4o5">
-        <dc:Bounds x="1082" y="99" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1072" y="142" width="56" height="14" />
+          <dc:Bounds x="160" y="142" width="75" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1i2ce8x_di" bpmnElement="Gateway_1i2ce8x" isMarkerVisible="true">
         <dc:Bounds x="755" y="92" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="742" y="73" width="77" height="14" />
+          <dc:Bounds x="765" y="73" width="32" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0gpa17q_di" bpmnElement="Event_0gpa17q">
-        <dc:Bounds x="1082" y="212" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1066" y="255" width="68" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0k28wlt_di" bpmnElement="Activity_18r3z00">
-        <dc:Bounds x="870" y="190" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0gsea3v_di" bpmnElement="Activity_1wsqbnn">
         <dc:Bounds x="280" y="77" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0diw5nw_di" bpmnElement="Activity_0j5vvc1">
-        <dc:Bounds x="870" y="77" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0d1yxqj_di" bpmnElement="ShowJokeEvaluation">
@@ -93,6 +63,18 @@
       <bpmndi:BPMNShape id="Activity_1fevkom_di" bpmnElement="EvaluateJoke">
         <dc:Bounds x="440" y="77" width="100" height="80" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_11xa4o5_di" bpmnElement="Event_11xa4o5">
+        <dc:Bounds x="902" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="893" y="142" width="55" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0gpa17q_di" bpmnElement="Event_0gpa17q">
+        <dc:Bounds x="912" y="212" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="890" y="255" width="80" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1shw5eh_di" bpmnElement="Flow_1shw5eh">
         <di:waypoint x="215" y="117" />
@@ -104,26 +86,18 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0hhyffi_di" bpmnElement="Flow_0hhyffi">
         <di:waypoint x="805" y="117" />
-        <di:waypoint x="870" y="117" />
+        <di:waypoint x="902" y="117" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="813" y="99" width="18" height="14" />
+          <dc:Bounds x="814" y="99" width="8" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0e0tg9v_di" bpmnElement="Flow_0e0tg9v">
         <di:waypoint x="780" y="142" />
         <di:waypoint x="780" y="230" />
-        <di:waypoint x="870" y="230" />
+        <di:waypoint x="912" y="230" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="789" y="183" width="13" height="14" />
+          <dc:Bounds x="799" y="243" width="21" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_16necjo_di" bpmnElement="Flow_16necjo">
-        <di:waypoint x="970" y="230" />
-        <di:waypoint x="1082" y="230" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_07shnb3_di" bpmnElement="Flow_07shnb3">
-        <di:waypoint x="970" y="117" />
-        <di:waypoint x="1082" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_159u9co_di" bpmnElement="Flow_159u9co">
         <di:waypoint x="540" y="117" />
