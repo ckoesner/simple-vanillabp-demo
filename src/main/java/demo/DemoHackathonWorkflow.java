@@ -103,29 +103,25 @@ public class DemoHackathonWorkflow {
     }
 
 
-    @UserTaskDetailsProvider(taskDefinition = "processTask")
-    public UserTaskDetails userTaskDetails(DemoAggregate demoAggregate, PrefilledUserTaskDetails prefilledUserTaskDetails){
-        List<String> a = List.of("a1", "a2", "a3");
-        prefilledUserTaskDetails.setDetails(Map.of("a", a, "b", "b"));
-        prefilledUserTaskDetails.setDetailsFulltextSearch("c");
-        return prefilledUserTaskDetails;
-    }
-
 
     @WorkflowDetailsProvider
     public WorkflowDetails workflowDetails(DemoAggregate demoAggregate, PrefilledWorkflowDetails prefilledWorkflowDetails){
-        List<String> a = List.of("a1", "a2", "a3");
-        prefilledWorkflowDetails.setDetails(Map.of("a", a, "b", "b"));
-        prefilledWorkflowDetails.setDetailsFulltextSearch("c");
         return prefilledWorkflowDetails;
     }
 
     /// new Stuff
-
     @WorkflowTask(taskDefinition = "jokeEvaluation")
     public void jokeEvaluation() {
         logger.info("UserTask: jokeEvaluation");
     }
+
+
+    @UserTaskDetailsProvider(taskDefinition = "jokeEvaluation")
+    public UserTaskDetails userTaskDetails(DemoAggregate demoAggregate, PrefilledUserTaskDetails prefilledUserTaskDetails){
+        prefilledUserTaskDetails.setDetails(Map.of("isGoodJoke", demoAggregate.isSuccess()));
+        return prefilledUserTaskDetails;
+    }
+
 
     @Data
     @NoArgsConstructor

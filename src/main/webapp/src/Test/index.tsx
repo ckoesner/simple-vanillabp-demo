@@ -1,11 +1,14 @@
 import { ColumnsOfUserTaskFunction } from '@vanillabp/bc-shared';
 import { userTaskListColumns as TestForm1_userTaskListColumns, taskDefinition as TestForm1_taskDefinition } from './TestForm1';
+import { userTaskListColumns as TestForm2_userTaskListColumns, taskDefinition as TestForm2_taskDefinition } from './TestForm2';
 
 const bpmnProcessId = 'DemoHackathonWorkflow';
 
 const userTaskListColumns: ColumnsOfUserTaskFunction = userTask => {
   if (userTask.taskDefinition === TestForm1_taskDefinition) {
     return TestForm1_userTaskListColumns;
+  } else if (userTask.taskDefinition === TestForm2_taskDefinition) {
+    return TestForm2_userTaskListColumns;
   }
   return undefined;
 }

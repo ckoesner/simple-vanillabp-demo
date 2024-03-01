@@ -2,25 +2,12 @@ const taskDefinition = 'jokeEvaluation';
 
 const userTaskListColumns = [
   {
-    id: 'dueDate',
+    id: 'good joke',
     title: {
-      'de': 'Fällig',
-      'en': 'due'
+      'de': 'Guter Witz?',
+      'en': 'Good Joke?'
     },
-    path: 'dueDate',
-    showAsColumn: true,
-    sortable: true,
-    filterable: true,
-    width: '10rem',
-    priority: 99
-  },
-  {
-    id: 'ID1',
-    title: {
-      'de': 'ID 1',
-      'en': 'id 1'
-    },
-    path: 'details.test1.testId1',
+    path: 'details.isGoodJoke',
     showAsColumn: true,
     sortable: true,
     filterable: true,
