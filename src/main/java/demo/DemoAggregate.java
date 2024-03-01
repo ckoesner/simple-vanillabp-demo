@@ -15,6 +15,9 @@ public class DemoAggregate {
 
     @Column(name = "SUCCESS")
     private boolean success;
+
+    @Column(name = "JOKE_DATA")
+    private String jokeData;
     
     public String getId() {
         return id;
@@ -31,5 +34,12 @@ public class DemoAggregate {
     public void setSuccess(boolean success) {
         this.success = success;
     }
-    
+
+    public String getJokeData() {
+        return jokeData;
+    }
+
+    public void setJokeData(String jokeData) {
+        this.jokeData = jokeData;
+    }
 }

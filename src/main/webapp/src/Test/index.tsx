@@ -1,7 +1,7 @@
 import { ColumnsOfUserTaskFunction } from '@vanillabp/bc-shared';
 import { userTaskListColumns as TestForm1_userTaskListColumns, taskDefinition as TestForm1_taskDefinition } from './TestForm1';
 
-const bpmnProcessId = 'DemoWorkflow';
+const bpmnProcessId = 'DemoHackathonWorkflow';
 
 const userTaskListColumns: ColumnsOfUserTaskFunction = userTask => {
   if (userTask.taskDefinition === TestForm1_taskDefinition) {

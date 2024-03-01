@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { UserTaskForm } from '@vanillabp/bc-shared';
+import {TextInput} from "grommet";
 
 const TestForm1: UserTaskForm = ({ userTask }) => {
     const [ userDetails, setUserDetails ] = useState();
@@ -20,17 +21,15 @@ const TestForm1: UserTaskForm = ({ userTask }) => {
     //         });
     }, [ ]);
 
-
-    const sendMessage = () => {
-        fetch('/wm/demo/api/demo/' + userTask.businessId + '/process-task-completed/' + userTask.id,
-            {method: "GET"})
+    const sendMessage = (e) => {
+        console.log(formText)
+        fetch('/wm/demo/api/demo/' + userTask.businessId + '/task/' + userTask.id + '/update',
+            {
+                method: "POST",
+                body: formText
+            })
             .then(data => console.log(data))
             .catch(error => console.error(error));
-        // fetch('http://localhost:8078/api/demo/' + userTask.businessId + '/process-task-completed/' + userTask.id,
-        //     {method: "GET"})
-        //     .then(data => console.log(data))
-        //     .catch(error => console.error(error));
-
     };
 
     return (
@@ -40,10 +39,11 @@ const TestForm1: UserTaskForm = ({ userTask }) => {
           <br/>
           Business ID: {userTask?.businessId ?? 'not available'}
           <br/>
-          User: {userDetails?.email ?? 'unknown'}
-          <br/>
 
-          <button onClick={sendMessage}>Submit</button>
+            <textarea onChange={e => setFormText(e.target.value)} placeholder="Write your joke now!">
+            </textarea>
+
+          <button onClick={sendMessage}>Send your joke</button>
       </div>);
 };
 

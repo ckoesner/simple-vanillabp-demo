@@ -15,14 +15,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.*;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
 
 @Service
 @WorkflowService(workflowAggregateClass = DemoAggregate.class)
-public class DemoWorkflow {
+public class DemoHackathonWorkflow {
 
-    private static final Logger logger = LoggerFactory.getLogger(DemoWorkflow.class);
+    private static final Logger logger = LoggerFactory.getLogger(DemoHackathonWorkflow.class);
     
     @Autowired
     private ProcessService<DemoAggregate> processService;
@@ -99,4 +103,84 @@ public class DemoWorkflow {
         prefilledWorkflowDetails.setDetailsFulltextSearch("c");
         return prefilledWorkflowDetails;
     }
+
+    /// new Stuff
+
+    @WorkflowTask(taskDefinition = "jokeEvaluation")
+    public void jokeEvaluation() {
+        logger.info("UserTask: jokeEvaluation");
+    }
+
+    @WorkflowTask(taskDefinition = "evaluateJoke")
+    public void evaluateJoke(DemoAggregate demoAggregate) {
+        logger.info("ServiceTask: EvaluateJoke");
+
+        // getJokeData
+        logger.info("demoAggregate: {}", demoAggregate.getJokeData());
+
+        // use openAI -> query joke score 1 - 10
+
+        try {
+            String body = "{\n" +
+                    "    \"model\": \"gpt-4-turbo-preview\",\n" +
+                    "    \"messages\": [\n" +
+                    "      {\n" +
+                    "        \"role\": \"user\",\n" +
+                    "        \"content\": \"Wie findest du diesen Witz von einer Skala von 1 bis 10 wo 10 das lustigste ist und antworte nur mit der skala als zahl:\\n\\n" +
+                    demoAggregate.getJokeData() +
+                    "       \"" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  }";
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI("https://api.openai.com/v1/chat/completions"))
+                    .header("Authorization", "Bearer " + "")
+                    .header("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(body))
+                    .build();
+
+            HttpResponse<String> response = HttpClient
+                    .newBuilder()
+                    .proxy(ProxySelector.getDefault())
+                    .build()
+                    .send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() != 200) {
+                throw new Exception("geht nicht");
+            }
+
+            logger.info("Response: {} ", response.body());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        /*
+        URL url = null;
+        try {
+            url = new URL("https://api.openai.com/v1/chat/completions");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", "Bearer " + "");
+
+            int status = con.getResponseCode();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        */
+
+
+
+        // score > 5 => success
+
+    }
+
+    public void updateJokeData(
+            final DemoAggregate demo,
+            final String taskId,
+            final String jokeData) {
+
+        demo.setJokeData(jokeData);
+        processService.completeUserTask(demo, taskId);
+    }
+
 }

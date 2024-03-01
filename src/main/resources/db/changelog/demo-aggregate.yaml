@@ -12,6 +12,11 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
               - column:
+                  name: JOKE_DATA
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
                   name: SUCCESS
                   type: boolean
                   constraints:
