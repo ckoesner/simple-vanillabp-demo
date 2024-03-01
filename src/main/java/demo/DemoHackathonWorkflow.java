@@ -207,6 +207,7 @@ public class DemoHackathonWorkflow {
                     .map(Integer::parseInt)
                     .orElse(-1);
             demoAggregate.setJokeScore(i);
+            demoAggregate.setSuccess(i >= 6);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
