@@ -184,6 +184,11 @@
           <artifactId>camunda8-spring-boot-adapter</artifactId>
           <version>0.0.3-SNAPSHOT</version>
         </dependency>
+        <dependency>
+          <groupId>at.phactum.zeebe</groupId>
+          <artifactId>zeebe-kafka-exporter-serde</artifactId>
+          <version>1.0.0</version>
+        </dependency>
       </dependencies>
     </profile>
   </profiles>
@@ -223,6 +228,14 @@
       <id>vanillabp-bc</id>
       <name>VanillaBP business cockpit</name>
       <url>https://maven.pkg.github.com/vanillabp/business-cockpit</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>github</id>
+      <name>Zeebe Kafka exporter</name>
+      <url>https://maven.pkg.github.com/ckoesner/zeebe-kafka-exporter</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>

@@ -4,8 +4,6 @@ logging:
 
 server:
   port: 8078
-  servlet:
-    context-path: /demo
 
 spring:
   application:

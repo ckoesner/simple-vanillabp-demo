@@ -6,6 +6,9 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     enabled: true
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:29092
 
 zeebe:
   client:
@@ -13,6 +16,8 @@ zeebe:
       gateway-address: 127.0.0.1:26500
     security:
        plaintext: true
+  kafka-exporter:
+    topic-name: zeebe
 
 common:
   enabled: true
@@ -27,8 +32,4 @@ vanillabp:
     demo:
       adapters:
         camunda8:
-          resources-location: processes8
-  redis:
-    uri: "redis://localhost:6379"
-    consumerGroup: "demoApplication"
-    consumerId: "consumer-1"
+          resources-location: classpath*:/processes8
