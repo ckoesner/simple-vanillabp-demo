@@ -1,5 +1,6 @@
 package demo;
 
+import io.vanillabp.spi.cockpit.BusinessCockpitService;
 import io.vanillabp.spi.cockpit.usertask.PrefilledUserTaskDetails;
 import io.vanillabp.spi.cockpit.usertask.UserTaskDetails;
 import io.vanillabp.spi.cockpit.usertask.UserTaskDetailsProvider;
@@ -26,6 +27,9 @@ public class DemoWorkflow {
     
     @Autowired
     private ProcessService<DemoAggregate> processService;
+
+    @Autowired
+    private BusinessCockpitService<DemoAggregate> businessCockpitService;
         
     public void startDemo(final String id) throws Exception {
         
