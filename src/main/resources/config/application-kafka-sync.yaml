@@ -1,5 +1,6 @@
 vanillabp:
   cockpit:
-    kafka-topics:
-      user-task: "user-tasks"
-      workflow: "workflows"
+    kafka:
+      workflow-topic: "workflows"
+      user-task-topic: "user-tasks"
+      workflow-module-topic: "modules"

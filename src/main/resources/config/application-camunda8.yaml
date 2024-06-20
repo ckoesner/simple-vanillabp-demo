@@ -10,22 +10,27 @@ spring:
     consumer:
       bootstrap-servers: localhost:29092
 
-zeebe:
+camunda:
   client:
-    broker:
-      gateway-address: 127.0.0.1:26500
-    security:
-       plaintext: true
-  kafka-exporter:
-    topic-name: zeebe
-
-common:
-  enabled: true
-  keycloak:
-    url: http://localhost:18080
-    realm: camunda-platform
-  client-id: zeebe
-  client-secret: zecret
+    mode: oidc
+    auth:
+      oidc-type: keycloak
+      issuer: http://localhost:18080/auth/realms/camunda-platform
+      client-id: zeebe
+      client-secret: zecret
+    zeebe:
+      enabled: true
+      base-url: http://localhost:26500
+      defaults:
+        enabled: false
+    operate:
+      enabled: false
+    tasklist:
+      enabled: false
+    optimize:
+      enabled: false
+    identity:
+      enabled: false
 
 vanillabp:
   workflow-modules:
