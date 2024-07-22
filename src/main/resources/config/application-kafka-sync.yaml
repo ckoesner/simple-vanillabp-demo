@@ -4,3 +4,8 @@ vanillabp:
       workflow-topic: "workflows"
       user-task-topic: "user-tasks"
       workflow-module-topic: "modules"
+
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
